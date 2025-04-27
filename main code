@@ -1,0 +1,115 @@
+// College majors starts here <<----------------------------------------------------------------------------------
+// Creating variables 
+var major_categories = getColumn("College Majors & Incomes","Major_category");
+var unemployment_rate = getColumn("College Majors & Incomes","Unemployment_rate");
+var ranking = getColumn("College Majors & Incomes","Rank");
+var majors = getColumn("College Majors & Incomes", "Major");
+var majorsFilteredList = [];
+
+// Functions for Collage Majors
+
+onEvent("collegeEnterButton", "click", filterMajors);
+
+function filterMajors(){
+  majorsFilteredList = [];
+  var CollegeUserInput = getText("CollegeUserInput");
+  for(var i = 0; i < 50; i++){
+    if(CollegeUserInput == major_categories[i]) {
+      appendItem(majorsFilteredList,"Category:  " + CollegeUserInput);
+      appendItem(majorsFilteredList,"Major:  " + majors[i]);
+      appendItem(majorsFilteredList,"Unemployment Rating:  " + unemployment_rate[i]);
+      appendItem(majorsFilteredList, "Ranking:  " + ranking[i]);
+    }
+  }
+}
+
+// Setting the output to the Screen
+onEvent("collegeEnterButton", "click", function()  {
+     setText("collegeOutput", majorsFilteredList.join("\n"));
+});
+
+
+// BigMac prices codes starts here <<<<<<<--------------------------------------------------------------------------
+// creating proper variables 
+var BigMacCountries = getColumn("Big Mac Index","Country");
+var BigMacLocalPrice = getColumn("Big Mac Index", "Local Price");
+var BigMacPrices = getColumn("Big Mac Index","Dollar Price");
+var BigMacFilteredList = [];
+
+onEvent("BigMacEnterButton","click", filterBigMacPrices);
+
+// function to filter the data and append it into empty list 
+function filterBigMacPrices(){
+  // filtering the empty list
+  BigMacFilteredList = [];
+  var BigMacUserInput = getText("BigMacUserInput");
+  
+  for(var i = 0; i < BigMacPrices.length; i++){
+    if(BigMacUserInput == BigMacCountries[i]){
+      appendItem(BigMacFilteredList,"The Country:  " + BigMacCountries[i]);
+      appendItem(BigMacFilteredList, "The local price:  " + BigMacLocalPrice[i]);
+      appendItem(BigMacFilteredList,"The Price:  $ " + BigMacPrices[i]);
+    }
+  }
+}
+onEvent("BigMacEnterButton","click", function(){
+  setText("BicMacOutput",BigMacFilteredList.join("\n"));
+});
+
+
+// Code for Crypto app starts here <<-----------------------------------------------------------------
+// creating proper variables 
+var year = getColumn("Cryptocurrency Historical Prices","Year");
+var symbol = getColumn("Cryptocurrency Historical Prices", "Symbol");
+var name = getColumn("Cryptocurrency Historical Prices", "Name");
+var month = getColumn("Cryptocurrency Historical Prices", "Month");
+var CryptoPrice = getColumn("Cryptocurrency Historical Prices", "Price");
+var CryptoFilteredList = [];
+onEvent("cryptoEnterButton", "click", filterCrypto);
+
+function filterCrypto(){
+  var symbolInput = getText("symbolInput");
+  var yearDropdown = getText("yearDropdown");
+  var monthInput = getText("monthInput");
+  CryptoFilteredList = [];
+  
+  for(var i = 0; i < symbol.length; i++){
+    if(symbolInput == symbol[i] || symbolInput == name[i]  && yearDropdown == year[i] && monthInput == month[i]){
+      appendItem(CryptoFilteredList,"Symbol:  " + symbol[i]);
+      appendItem(CryptoFilteredList,"Year: " + year[i]);
+      appendItem(CryptoFilteredList,"Month:  " + month[i]);
+      appendItem(CryptoFilteredList,"Price:  $" + CryptoPrice[i]);
+      appendItem(CryptoFilteredList, "----------------");
+    }
+  }
+}
+
+onEvent("cryptoEnterButton","click", function(){
+  setText("cryptoOutput", CryptoFilteredList.join("\n"));
+});
+//Functioning home Screen Buttons <<---------------------------------------
+
+onEvent("MajorsButton","click", function(){
+  setScreen("CollegeScreen");
+});
+onEvent("bigMacButton","click", function(){
+  setScreen("BigMacScreen");
+});
+
+onEvent("CryptoButton","click", function(){
+  setScreen("CryptoScreen");
+});
+// Functioning Return Buttons <<---------------------------------------
+
+onEvent("BigMacReturnButton","click",function(){
+  setScreen("HomeScreen");
+});
+
+onEvent("cryptoReturnButton","click",function(){
+  setScreen("HomeScreen");
+});
+
+onEvent("CollegeReturnButton","click",function(){
+  setScreen("HomeScreen");
+});
+
